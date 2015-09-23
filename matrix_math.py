@@ -6,7 +6,10 @@ class Vector:
     def __init__(self, value):
         self.value = value
         self.counter = 0
-        self.empty_list = []
+        self.shape_checker_list = []
+        self.dot_product_list = []
+        self.add_list = []
+        self.sub_list = []
         return
 
     def __str__(self):
@@ -28,4 +31,32 @@ class Vector:
     def vector_scalar_mult(self, value_scalar):
         return [x * value_scalar for x in self.value]
 
-     
+    def dot(self, other):
+        self.vector_shape_checker(other)
+        self.counter = -1
+        for x in self.value:
+            self.counter += 1
+            addition_num = other.value[self.counter]
+            new_num = x * addition_num
+            self.dot_product_list.append(new_num)
+        return sum(self.dot_product_list)
+
+    def vector_add(self, other):
+        self.vector_shape_checker(other)
+        self.counter = -1
+        for x in self.value:
+            self.counter += 1
+            addition_num = other.value[self.counter]
+            new_num = x + addition_num
+            self.add_list.append(new_num)
+        return self.add_list
+
+    def vector_sub(self, other):
+        self.vector_shape_checker(other)
+        self.counter = -1
+        for x in self.value:
+            self.counter += 1
+            addition_num = other.value[self.counter]
+            new_num = x - addition_num
+            self.sub_list.append(new_num)
+        return self.sub_list
