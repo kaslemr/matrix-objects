@@ -1,5 +1,30 @@
 class Matrix(Vector):
-    pass
+
+    def __init__(self, value):
+        self.value = value
+        self.shape = []
+        self.new_matrix = []
+        return
+
+    def __str__(self):
+        return "{}".format(self.value)
+
+    def matrix_shape(self):
+        self.rows = sum((isinstance(x, list) for x in self.value))
+        if self.rows == 0:
+            self.shape.append(len(self.value))
+            return self.shape
+        else:
+            self.shape.append(self.rows)
+            for x in self.value:
+                self.columns = sum(isinstance(a, int) for a in x)
+            self.shape.append(self.columns)
+            return self.shape
+
+    def matrix_scalar(self, value_scalar):
+        self.new_matrix = [[col * scalar for col in x] for x in self.value]
+        return self.new_matrix
+
 
 class Vector:
 
@@ -28,7 +53,7 @@ class Vector:
         self.empty_list = tuple(self.empty_list)
         return self.empty_list
 
-    def vector_scalar_mult(self, value_scalar):
+    def __mul__(self, value_scalar):
         return [x * value_scalar for x in self.value]
 
     def dot(self, other):
@@ -41,7 +66,7 @@ class Vector:
             self.dot_product_list.append(new_num)
         return sum(self.dot_product_list)
 
-    def vector_add(self, other):
+    def __add__(self, other):
         self.vector_shape_checker(other)
         self.counter = -1
         for x in self.value:
@@ -51,7 +76,7 @@ class Vector:
             self.add_list.append(new_num)
         return self.add_list
 
-    def vector_sub(self, other):
+    def __sub__(self, other):
         self.vector_shape_checker(other)
         self.counter = -1
         for x in self.value:
